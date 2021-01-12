@@ -1,8 +1,22 @@
 body {
-  padding: 50px;
+  padding: 100px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+.image-preview img{
+  width: 8rem;
+  height: 8rem;
+}
+.gallery-images{
+  width: 8rem;
+  height: 8rem;
+}
+.row img{
+  margin: 0.5rem;
+}
+.submit{
+  margin-top: 1rem;
 }
