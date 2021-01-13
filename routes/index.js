@@ -2,11 +2,15 @@ var express = require('express');
 var router = express.Router();
 const passport = require("passport")
 const flash = require("connect-flash")
+const multer = require("../multer")
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const message = req.flash("error")
+  if (multer.MulterError){
+    message.push(multer.MulterError)
+  }  
   res.render('index', {message: message, hasError: message.length > 0});
 });
 

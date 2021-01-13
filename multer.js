@@ -11,20 +11,20 @@ const storage = multer.diskStorage({
 })
 
 
-const fileFilter = (req, file, cb) => {
-  const validMimetype = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif", "image/tiff", "image/tif", "image/psd"]
-  if (validMimetype.includes(file.mimetype)) {
-      cb(null, true)
-  } else {
-      //reject file
-      cb({message: 'Unsupported file format'}, false)
-  }
-}
+// const fileFilter = (req, file, cb) => {
+//   const validMimetype = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif", "image/tiff", "image/tif", "image/psd"]
+//   if (validMimetype.includes(file.mimetype)) {
+//       cb(null, true)
+//   } else {
+//       //reject file
+//       cb(new Error('Unsupported file format'))
+//   }
+// }
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 2 * 1024 * 1024 },
-    fileFilter: fileFilter
+    // limits: { fileSize: 2 * 1024 * 1024 },
+    // fileFilter: fileFilter
 })
 
 

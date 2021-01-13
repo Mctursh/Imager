@@ -8,10 +8,10 @@ module.exports = function(arr) {
     let currentImage = arr[i];
     if (currentImage.size > maxSize) {
       let msg1 = "file larger than 2MB";
-      imageArray.push(msg)
+      return msg1
     } else if (!validMimetype.includes(currentImage.mimetype)) {
       let msg2 = "invalid file format";
-      imageArray.push(msg)
+      return msg2
     } else {
       imageArray.push(currentImage)
     }
