@@ -13,9 +13,9 @@ const flash = require("connect-flash")
 
 const app = express();
 
+const privateRouter = require("./routes/private")
 const indexRouter = require('./routes/index');
 const uploader = require("./routes/upload")
-const usersRouter = require('./routes/users');
 
 const User = require("./models/userschema")
 
@@ -39,6 +39,7 @@ app.engine('.hbs', exphbs({defaultLayout: "layout", extname: ".hbs"}));
 app.set('view engine', '.hbs');
 
 app.use(function(req, res, next) {
+  req.setTimeout(60000)
   res.locals.login = req.isAuthenticated()
   res.locals.session = req.session;
   next()
@@ -53,7 +54,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/upload', uploader);
+app.use("/upload/private", privateRouter)
+app.use('/upload/public', uploader);
 app.use('/', indexRouter);
 
 

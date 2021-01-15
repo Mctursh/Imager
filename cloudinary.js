@@ -14,6 +14,7 @@ exports.uploads = (file, folder) => {
                 result: feed
             })
         }, {
+            timeout: 900000000,
             resource_type: "auto",
             folder: folder
         })

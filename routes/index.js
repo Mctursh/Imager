@@ -3,15 +3,18 @@ var router = express.Router();
 const passport = require("passport")
 const flash = require("connect-flash")
 const multer = require("../multer")
+const auth = require("../helper/is-logged-in")
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  const message = req.flash("error")
-  if (multer.MulterError){
-    message.push(multer.MulterError)
-  }  
-  res.render('index', {message: message, hasError: message.length > 0});
+  const messageSuccess = req.flash("success")
+  const messageFailure = req.flash("error")
+  console.log(messageFailure);
+  console.log(messageSuccess);
+  const hasSuccess = messageSuccess.length > 0
+  const hasError = messageFailure.length > 0
+  res.render("index", {messageSuccess: messageSuccess, messageFailure: messageFailure, hasSuccess: hasSuccess, hasError: hasError});
 });
 
 router.get('/auth/google',
@@ -29,11 +32,25 @@ router.get('/auth/google/imager',
   }
 );
 
-router.get("/gallery", (req, res) => {
+router.get("/logout", (req, res) => {
+  req.logout()
+  res.redirect("/")
+})
+
+router.get("/gallery", auth, (req, res) => {
   res.render("gallery")
 })
 
-router.get("/private", (req, res) => {
-  res.render("private")
+router.get("/private", auth, (req, res) => {
+  const messageSuccess = req.flash("success")
+  const messageFailure = req.flash("error")
+  console.log(messageFailure);
+  console.log(messageSuccess);
+  const hasSuccess = messageSuccess.length > 0
+  const hasError = messageFailure.length > 0
+  res.render("private", {messageSuccess: messageSuccess, messageFailure: messageFailure, hasSuccess: hasSuccess, hasError: hasError})
 })
+
+
+
 module.exports = router;

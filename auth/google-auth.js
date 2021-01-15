@@ -29,9 +29,9 @@ passport.use(new GoogleStrategy({
     let imageURL = profile._json.picture
 
     //check to create a user(if none) or find an existing user
-    User.findOne({googleId: googleID}, (err, user) => {
+    User.findOne({googleID: googleID}, (err, user) => {
       if (user == null || undefined) {
-        User.create({name: name, googleId: googleID, profilePic: imageURL}, (err, user) => {
+        User.create({name: name, googleID: googleID, profilePic: imageURL}, (err, user) => {
           if (err) {
             console.log(err);
           }

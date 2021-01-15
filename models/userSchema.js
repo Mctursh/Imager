@@ -4,8 +4,8 @@ mongoose.connect("mongodb://localhost:27017/imagerDB", {useNewUrlParser: true, u
 
 const userSchema = new mongoose.Schema({
   name: String,
-  googleId: String,
-  profilePic: String
+  googleID: String,
+  profilePic: String,
 })
 
 module.exports = mongoose.model("User", userSchema)
