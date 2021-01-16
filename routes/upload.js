@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport")
 const flash = require("connect-flash")
 const Public = require("../models/publicimages")
-const tou8 = require('buffer-to-uint8array')
 const fs = require("fs")
 const validate = require("../helper/validation")
 const upload = require('../multer')
