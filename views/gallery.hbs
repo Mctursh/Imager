@@ -1,21 +1,31 @@
 <h1>Your Gallery</h1>
-<div class="row">
-  <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-5">
-    <img class="gallery-images" src="./images/broB.JPG" alt="">
-  </div>
-  <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-5">
-    <img class="gallery-images" src="./images/broB.JPG" alt="">
-  </div>
-  <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-5">
-    <img class="gallery-images" src="./images/broB.JPG" alt="">
-  </div>
-  <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-5">
-    <img class="gallery-images" src="./images/broB.JPG" alt="">
-  </div>
-  <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-5">
-    <img class="gallery-images" src="./images/broB.JPG" alt="">
-  </div>
-  <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-3 col-sm-5">
-    <img class="gallery-images" src="./images/broB.JPG" alt="">
-  </div>
+{{#if hasSuccess}}
+<div class="submit alert alert-success" role="alert">
+  {{# each messageSuccess}}
+    <p>{{this}}</p>
+  {{/each}}
 </div>
+{{/if}}
+{{#if hasError}}
+<div class="submit alert alert-danger" role="alert">
+  {{# each messageFailure}}
+    <p>{{this}}</p>
+  {{/each}}
+</div>
+{{/if}}
+<form action="/delete" method="post">
+    <button type="submit" id="btn" class="btn btn-outline-warning">Delete</button>
+    <div class="alert alert-info">
+      <p><i class="fas fa-info-circle"></i> Select images to be deleted</p>
+    </div>
+  {{# each chunckedData}}
+    <div class="row">
+      {{# each this}}
+        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 fit-content">
+          <img class="gallery-images" data-pic_id="{{this.privateImages.assetID}}" src="{{privateImages.imageUrl}}" alt="">
+          <input type="hidden" data-pic_id="{{this.privateImages.assetID}}" disabled="true" name="asset" value="{{this._id}}">
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+</form>

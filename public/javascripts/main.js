@@ -22,3 +22,17 @@ $(function() {
         imagesPreview(this, '.image-preview');
     });
 });
+
+// $(".gallery-images").on("click",function() {
+//   let id = $(this).data("id")
+//   $("a").attr("href", $("a").attr("href") + `${id}`)
+//   console.log(id);
+// })
+
+$(".gallery-images").click(function() {
+  let pic = $(this).data("pic_id")
+  $("[data-pic_id=" + pic + "]").toggleClass("selected")
+  $("[data-pic_id=" + pic + "]").prop("disabled", function(index, attr) {
+    return attr == true ? false : true;
+  })
+})

@@ -2,21 +2,39 @@ body {
   padding: 100px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+h1{
+  margin: 0.1rem;
+}
 
 a {
   color: #00B7FF;
+}
+#btn {
+  margin: 0.8rem 0.1rem;
+}
+.alert-info{
+  width: fit-content;
+  height: 50px;
+  display: inline-block
 }
 .image-preview img{
   width: 8rem;
   height: 8rem;
 }
 .gallery-images{
+  border: 3px solid wheat;
+  margin: 0.1rem;
+  border-radius: 10px;
   width: 8rem;
   height: 8rem;
 }
-.row img{
-  margin: 0.5rem;
+.fit-content{
+  width: fit-content;
 }
 .submit{
   margin-top: 1rem;
+}
+.selected{
+  border-color: red;
+  opacity: 0.5;
 }
