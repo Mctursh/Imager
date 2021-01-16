@@ -1,30 +1,20 @@
 const multer = require('multer');
 
-
+//configuring type of storage for parsing and storing files to our server with multer
 const storage = multer.diskStorage({
+    //destination for storing incoming files
     destination: function (req, file, cb) {
         cb(null, './uploads/')
     },
+    //setting the name the file will carry in the new location it is stored in
     filename: function (req, file, cb) {
         cb(null,file.originalname)
     }
 })
 
-
-// const fileFilter = (req, file, cb) => {
-//   const validMimetype = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif", "image/tiff", "image/tif", "image/psd"]
-//   if (validMimetype.includes(file.mimetype)) {
-//       cb(null, true)
-//   } else {
-//       //reject file
-//       cb(new Error('Unsupported file format'))
-//   }
-// }
-
+//middleware used in our routes to store incoming files
 const upload = multer({
-    storage: storage,
-    // limits: { fileSize: 2 * 1024 * 1024 },
-    // fileFilter: fileFilter
+  storage: storage
 })
 
 

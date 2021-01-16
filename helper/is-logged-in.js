@@ -1,4 +1,4 @@
-
+//Helper that checks if a request is authenticatd
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     next()

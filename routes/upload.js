@@ -12,7 +12,7 @@ const singleValidator = require("../helper/single-validator")
 const publicSeed = require("../models/multi-seeder")
 const publicSingle = require("../models/public-single-upload")
 
-
+//handling all post request to the public posting route
 router.post("/", upload.any(), async (req, res) => {
   const imageData = req.files
   console.log(req.body);
@@ -24,12 +24,15 @@ router.post("/", upload.any(), async (req, res) => {
   let msg2 = "invalid file format"
   let msg3 = "upload failed, please try again"
   let msg4 = "successfully uploaded images"
+
+  //checks and runs if no data was passed
   if (imageData.length == 0) {
     req.flash("error", "no image selected")
     res.redirect("/")
   } else {
+    //checks and runs if only one data was passed
     if (imageData.length == 1) {
-      const result = singleValidator(imageData)
+      const result = singleValidator(imageData)    //A validator helper function that checks if a file is of valid type
       if (result == msg1) {
         req.flash("error", msg1)
         res.redirect("/")
@@ -37,6 +40,7 @@ router.post("/", upload.any(), async (req, res) => {
         req.flash("error", msg2)
         res.redirect("/")
       } else {
+        //instatiating an asynchronous funciton to upload items to the cloudinary
         const uploader = async (path) => await cloudinary.uploads(path, 'Public');
         const { path } = result;
         const newData = await uploader(path)
@@ -44,24 +48,35 @@ router.post("/", upload.any(), async (req, res) => {
         newData.result.description1 = description1;
         newData.result.description2 = description2;
         cloudinaryFeeds.push(newData)
-        console.log(newData);
+
+        //deleting the uploaded file from our local server for safety reasons
         fs.unlinkSync(path)
       }
-
+      //this helper add recently uploaded image details to the DB
       const docs = await publicSingle(cloudinaryFeeds);
-      console.log(docs);
+
+      //validating if the helper function succeded in its operation
       if (docs == -1){
         req.flash("error", msg3)
       } else if (docs == 1) {
         req.flash("success", msg4)
       }
       res.redirect("/")
+
+      // checks and runs if more than one data was passed to the req.body
     } else if (imageData.length > 1) {
+      //helper for validiting uploaded files
       const results = validate(imageData)
+
+      //validating the return value from the helper
+      //runs if atleat one file fails to upload
       if (typeof(results) == "string") {
         req.flash("error", results)
         res.redirect("/")
+
+        //checks and runs if all filese were uploaded succefully
       } else if (typeof(results) == "object") {
+        // async helper for uploading files to cloudinary
         const uploader = async (path) => await cloudinary.uploads(path, 'Public');
         for (result of results) {
           const { path } = result;
@@ -73,8 +88,10 @@ router.post("/", upload.any(), async (req, res) => {
           console.log(newData);
           fs.unlinkSync(path)
         }
+        //adds data to DB
         const docs = await publicSeed(cloudinaryFeeds)
-        console.log(docs);
+
+        //validating if any error occured during seeding to DB
         if (docs == -1){
           req.flash("error", msg3)
         } else if (docs == 1) {

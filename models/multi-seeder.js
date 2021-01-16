@@ -1,12 +1,18 @@
 const Public = require("./publicimages");
 
-
+//helper that adds multiple data to the Public DB
 const publicSeed = async (dataArray) => {
   let end = 0;
   const dataToBeStored = []
+
+  //checks if at least any file failed to upload to cloudinary
   const check = dataArray.filter(u => (u.result.error != null)).length
+
+  //runs if at least one fails
   if (check > 0) {
     return -1
+
+    //runs if none failed
   } else if (check == 0) {
     dataArray.forEach((data) => {
       const picData = {
@@ -19,6 +25,8 @@ const publicSeed = async (dataArray) => {
       }
       dataToBeStored.push(picData);
     })
+
+    //async for adding multiple data into the Public DB
     await Public.insertMany(dataToBeStored, {ordered: true}).then(() => {
       end++
     }).catch(() => {

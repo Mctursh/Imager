@@ -1,11 +1,18 @@
 const Private = require("./privateimages")
 
+//helper that adds multiple data to the Private DB
 const privateSeed = async (dataArray) => {
   let end = 0;
   const dataToBeStored = []
+
+  //checks if at least any file failed to upload to cloudinary
   const check = dataArray.filter(u => (u.result.error != null)).length
+
+  //runs if at least one fails
   if (check > 0) {
     return -1
+
+    //runs if none failed
   } else if (check == 0) {
     dataArray.forEach((data) => {
       const picData = {
@@ -22,6 +29,8 @@ const privateSeed = async (dataArray) => {
       dataToBeStored.push(picData);
     })
 
+
+    //async for adding multiple data into the Private DB
     await Private.insertMany(dataToBeStored, {ordered: true}).then(() => {
       end++
     }).catch(() => {

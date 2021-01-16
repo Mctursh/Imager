@@ -1,7 +1,7 @@
 const validMimetype = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif", "image/tiff", "image/tif", "image/psd"]
 const maxSize = 2 * 1024 * 1024
 
-
+//helper tat validates if an array of files are valid
 module.exports = function(arr) {
   let imageArray = [];
   for (let i = 0; i < arr.length; i++) {

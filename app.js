@@ -31,6 +31,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//loading our oauth configurations to our app
 require("./auth/google-auth")
 
 
@@ -38,6 +39,7 @@ require("./auth/google-auth")
 app.engine('.hbs', exphbs({defaultLayout: "layout", extname: ".hbs"}));
 app.set('view engine', '.hbs');
 
+//Configuring my personal middleware to help configure my app
 app.use(function(req, res, next) {
   req.setTimeout(60000)
   res.locals.login = req.isAuthenticated()
@@ -45,6 +47,7 @@ app.use(function(req, res, next) {
   next()
 })
 
+//configuring external middleware
 app.use(flash())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -54,6 +57,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Setting the routes to the appropriate route
 app.use("/upload/private", privateRouter)
 app.use('/upload/public', uploader);
 app.use('/', indexRouter);
@@ -76,6 +80,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//listening on port 3000
 app.listen(3000, (req, res) => {
   console.log("server running on port 3000");
 })

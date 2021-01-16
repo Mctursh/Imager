@@ -28,6 +28,8 @@
   <div class="mb-3">
     <label for="formFileMultiple" class="form-label">Upload your Images</label>
     <input class="form-control" name="image" type="file" id="formFileMultiple" multiple>
+
+    <!-- checks for available flash message and displys it -->
     {{#if hasSuccess}}
     <div class="submit alert alert-success" role="alert">
       {{# each messageSuccess}}
@@ -43,6 +45,8 @@
     </div>
     {{/if}}
   </div>
+
+  <!-- Section for previewing images -->
   <div class="image-preview">
   </div>
   <button type="submit" class="submit btn btn-success">Upload</button>
