@@ -14,7 +14,6 @@ const auth = require("../helper/is-logged-in")
 //handling all post request to the private posting route
 router.post("/", auth, upload.any(), async (req, res) => {
   const imageData = req.files
-  console.log(req.body);
   const name = req.body.name
   const description1 = req.body.description1
   const description2 = req.body.description2
