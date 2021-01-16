@@ -17,7 +17,7 @@ const privateRouter = require("./routes/private")
 const indexRouter = require('./routes/index');
 const uploader = require("./routes/upload")
 
-const User = require("./models/userschema")
+const User = require("./models/userSchema")
 
 //configuring our app to use session module
 app.use(session({
