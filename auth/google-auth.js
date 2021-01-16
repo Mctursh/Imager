@@ -1,7 +1,7 @@
 const passport = require("passport")
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require("express-session")
-const User = require("../models/userschema")
+const User = require("../models/userSchema")
 
 
 passport.serializeUser(function(user, done) {
