@@ -1,4 +1,5 @@
 const multer = require('multer');
+const path = require('path');
 
 //configuring type of storage for parsing and storing files to our server with multer
 const storage = multer.diskStorage({
