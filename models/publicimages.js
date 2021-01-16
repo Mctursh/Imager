@@ -7,7 +7,6 @@ mongoose.connect("mongodb://localhost:27017/imagerDB", {useNewUrlParser: true, u
 const publicImageSchema = new mongoose.Schema({
   collectionName: String,
   name: String,
-  description: Array,
   assetID: String,
   publicID: String,
   imageUrl: String

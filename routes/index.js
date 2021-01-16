@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const passport = require("passport")
 const flash = require("connect-flash")
 const multer = require("../multer")
@@ -10,19 +10,28 @@ const Private = require("../models/privateimages")
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const messageSuccess = req.flash("success")
-  const messageFailure = req.flash("error")
-  console.log(messageFailure);
-  console.log(messageSuccess);
+  const messageFailure = req.flash("error");
   const hasSuccess = messageSuccess.length > 0
   const hasError = messageFailure.length > 0
 
-  //rendering the index view page along with possible flash message if they exist
-  res.render("index", {
-    messageSuccess: messageSuccess,
-    messageFailure: messageFailure,
-    hasSuccess: hasSuccess,
-    hasError: hasError
-  });
+  if (req.isAuthenticated()) {
+    const pic = req.user.profilePic
+    res.render("index", {
+      messageSuccess: messageSuccess,
+      messageFailure: messageFailure,
+      hasSuccess: hasSuccess,
+      hasError: hasError,
+      pic: pic
+    });
+  } else {
+    //rendering the index view page along with possible flash message if they exist
+    res.render("index", {
+      messageSuccess: messageSuccess,
+      messageFailure: messageFailure,
+      hasSuccess: hasSuccess,
+      hasError: hasError
+    });
+  }
 });
 
 //route for authentication through google
@@ -52,10 +61,9 @@ router.get("/logout", (req, res) => {
 
 //route that handles get request to then gallery route of a user
 router.get("/gallery", auth, (req, res) => {
+  const pic = req.user.profilePic
   const messageSuccess = req.flash("success")
-  const messageFailure = req.flash("error")
-  console.log(messageFailure);
-  console.log(messageSuccess);
+  const messageFailure = req.flash("error");
   const hasSuccess = messageSuccess.length > 0
   const hasError = messageFailure.length > 0
   const userID = req.user.googleID
@@ -81,7 +89,8 @@ router.get("/gallery", auth, (req, res) => {
           messageSuccess: messageSuccess,
           messageFailure: messageFailure,
           hasSuccess: hasSuccess,
-          hasError: hasError
+          hasError: hasError,
+          pic: pic
         })
       }
     })
@@ -134,17 +143,17 @@ router.post("/delete", auth, async (req, res) => {
 
 //handles all request to get the private view
 router.get("/private", auth, (req, res) => {
+  const pic = req.user.profilePic
   const messageSuccess = req.flash("success")
-  const messageFailure = req.flash("error")
-  console.log(messageFailure);
-  console.log(messageSuccess);
+  const messageFailure = req.flash("error");
   const hasSuccess = messageSuccess.length > 0
   const hasError = messageFailure.length > 0
   res.render("private", {
     messageSuccess: messageSuccess,
     messageFailure: messageFailure,
     hasSuccess: hasSuccess,
-    hasError: hasError
+    hasError: hasError,
+    pic: pic
   })
 })
 

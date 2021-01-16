@@ -1,4 +1,4 @@
-document.ready(function() {    //only runs when the DOM is ready and for manipulations and page has loaded
+$(document).ready(function() {    //only runs when the DOM is ready and for manipulations and page has loaded
   $(function() {
       // Multiple images preview in browser
       var imagesPreview = function(input, placeToInsertImagePreview) {

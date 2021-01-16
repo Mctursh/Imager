@@ -9,7 +9,6 @@ const privateImageSchema = new mongoose.Schema({
   privateImages: {
     collectionName: String,
     name: String,
-    description: Array,
     assetID: String,
     publicID: String,
     imageUrl: String

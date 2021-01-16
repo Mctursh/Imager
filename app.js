@@ -44,6 +44,7 @@ app.use(function(req, res, next) {
   req.setTimeout(60000)
   res.locals.login = req.isAuthenticated()
   res.locals.session = req.session;
+  console.log(req.user);
   next()
 })
 

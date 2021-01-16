@@ -20,7 +20,6 @@ const privateSingle = async (data) => {
         name: data[0].result.original_filename,
         assetID: data[0].result.asset_id,
         publicID: data[0].result.public_id,
-        description: [data[0].result.description1, data[0].result.description2],
         imageUrl: data[0].result.secure_url
       }
     }

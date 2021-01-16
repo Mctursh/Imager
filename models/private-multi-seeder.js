@@ -22,7 +22,6 @@ const privateSeed = async (dataArray) => {
           name: data.result.original_filename,
           assetID: data.result.asset_id,
           publicID: data.result.public_id,
-          description: [data.result.description1, data.result.description2],
           imageUrl: data.result.secure_url
         }
       }

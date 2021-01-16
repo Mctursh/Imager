@@ -45,8 +45,6 @@ router.post("/", upload.any(), async (req, res) => {
         const { path } = result;
         const newData = await uploader(path)
         newData.result.name = name
-        newData.result.description1 = description1;
-        newData.result.description2 = description2;
         cloudinaryFeeds.push(newData)
 
         //deleting the uploaded file from our local server for safety reasons
@@ -82,8 +80,6 @@ router.post("/", upload.any(), async (req, res) => {
           const { path } = result;
           const newData = await uploader(path)
           newData.result.name = name
-          newData.result.description1 = description1;
-          newData.result.description2 = description2;
           cloudinaryFeeds.push(newData)
           console.log(newData);
           fs.unlinkSync(path)
