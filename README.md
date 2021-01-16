@@ -14,7 +14,7 @@ Users are authenticated via the google sign-in strategy.
 Users also response message upon failure or success of the the operation, be it upload or delete.
 
 ## live page
-[Imager](https://choosealicense.com/licenses/mit/)
+[Imager](https://desolate-bastion-84839.herokuapp.com)
 
 
 ## Contributing
