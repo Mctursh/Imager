@@ -27,17 +27,17 @@ router.post("/", upload.any(), async (req, res) => {
   //checks and runs if no data was passed
   if (imageData.length == 0) {
     req.flash("error", "no image selected")
-    res.redirect("/")
+    res.redirect("/upload")
   } else {
     //checks and runs if only one data was passed
     if (imageData.length == 1) {
       const result = singleValidator(imageData)    //A validator helper function that checks if a file is of valid type
       if (result == msg1) {
         req.flash("error", msg1)
-        res.redirect("/")
+        res.redirect("/upload")
       } else if (result == msg2) {
         req.flash("error", msg2)
-        res.redirect("/")
+        res.redirect("/upload")
       } else {
         //instatiating an asynchronous funciton to upload items to the cloudinary
         const uploader = async (path) => await cloudinary.uploads(path, 'Public');
@@ -58,7 +58,7 @@ router.post("/", upload.any(), async (req, res) => {
       } else if (docs == 1) {
         req.flash("success", msg4)
       }
-      res.redirect("/")
+      res.redirect("/upload")
 
       // checks and runs if more than one data was passed to the req.body
     } else if (imageData.length > 1) {
@@ -69,7 +69,7 @@ router.post("/", upload.any(), async (req, res) => {
       //runs if atleat one file fails to upload
       if (typeof(results) == "string") {
         req.flash("error", results)
-        res.redirect("/")
+        res.redirect("/upload")
 
         //checks and runs if all filese were uploaded succefully
       } else if (typeof(results) == "object") {
@@ -92,7 +92,7 @@ router.post("/", upload.any(), async (req, res) => {
         } else if (docs == 1) {
           req.flash("success", msg4)
         }
-        res.redirect("/")
+        res.redirect("/upload")
       }
     }
   }
