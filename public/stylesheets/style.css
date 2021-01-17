@@ -21,7 +21,7 @@ a {
   width: 8rem;
   height: 8rem;
 }
-.gallery-images{
+.gallery-images, .home-images{
   border: 3px solid wheat;
   margin: 0.1rem;
   border-radius: 10px;
@@ -41,4 +41,7 @@ a {
 #user-pic{
   border-radius: 50%;
   height: 2rem
+}
+.fa-0x {
+  font-size: 0.7rem;
 }

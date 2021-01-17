@@ -1,0 +1,11 @@
+<h1>All pictures</h1>
+
+{{# each chunckedData}}
+  <div class="row">
+    {{# each this}}
+      <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 fit-content">
+        <img class="home-images" src="{{this.imageUrl}}" alt="">
+      </div>
+    {{/each}}
+  </div>
+{{/each}}

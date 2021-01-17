@@ -5,10 +5,40 @@ const flash = require("connect-flash")
 const multer = require("../multer")
 const auth = require("../helper/is-logged-in")
 const Private = require("../models/privateimages")
+const Public = require("../models/publicimages")
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  Public.find({}, (error, docs) => {
+    if (error) {
+      res.render("error", {
+        error: error
+      })
+    } else {
+      //chopping our recieved data to match the FE UI needs
+      const chunckedData = []
+      const chunkSize = 8
+      for (let i = 0; i < docs.length; i += chunkSize) {
+        chunckedData.push(docs.slice(i, i + chunkSize))
+      }
+      if (req.isAuthenticated()) {
+        const pic = req.user.profilePic
+        res.render("home", {
+          chunckedData: chunckedData,
+          pic: pic
+        })
+      } else {
+        res.render("home", {
+          chunckedData: chunckedData,
+        })
+      }
+    }
+  })
+});
+
+
+router.get('/upload', function(req, res, next) {
   const messageSuccess = req.flash("success")
   const messageFailure = req.flash("error");
   const hasSuccess = messageSuccess.length > 0
@@ -16,7 +46,7 @@ router.get('/', function(req, res, next) {
 
   if (req.isAuthenticated()) {
     const pic = req.user.profilePic
-    res.render("index", {
+    res.render("upload", {
       messageSuccess: messageSuccess,
       messageFailure: messageFailure,
       hasSuccess: hasSuccess,
@@ -25,7 +55,7 @@ router.get('/', function(req, res, next) {
     });
   } else {
     //rendering the index view page along with possible flash message if they exist
-    res.render("index", {
+    res.render("upload", {
       messageSuccess: messageSuccess,
       messageFailure: messageFailure,
       hasSuccess: hasSuccess,
@@ -126,7 +156,7 @@ router.post("/delete", auth, async (req, res) => {
     const deleter = async (each) => await Private.findByIdAndDelete(each)
 
     //looping through all the data sent for deleting
-    for(each of assetID) {
+    for (each of assetID) {
       const del = await deleter(each)
       amount++
     }
