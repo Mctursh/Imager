@@ -10,7 +10,7 @@ const Public = require("../models/publicimages")
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  Public.find({}, (error, docs) => {
+  Public.find().lean().exec((error, docs) => {
     if (error) {
       res.render("error", {
         error: error
